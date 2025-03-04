@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import DashboardLayout from '@/components/dashboard/DashboardLayout';
 import MetricCard from '@/components/dashboard/MetricCard';
@@ -6,205 +5,225 @@ import ChartCard from '@/components/dashboard/ChartCard';
 import DateRangePicker from '@/components/dashboard/DateRangePicker';
 import FilterDropdown from '@/components/dashboard/FilterDropdown';
 import GaugeChart from '@/components/dashboard/GaugeChart';
-import { 
-  Briefcase, 
-  BarChart, 
-  LineChart,
-  RefreshCw
-} from 'lucide-react';
-import { 
-  BarChart as RechartsBarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  Legend, 
-  ResponsiveContainer,
-  LineChart as RechartsLineChart,
-  Line,
-  PieChart,
-  Pie,
-  Cell
-} from 'recharts';
+import { Briefcase, BarChart, LineChart, RefreshCw } from 'lucide-react';
+import { BarChart as RechartsBarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart as RechartsLineChart, Line, PieChart, Pie, Cell } from 'recharts';
 
 // Mock data for charts
-const weeklyData = [
-  { day: 'S2', nivel1: 58936, nivel2: 11915, nivel3: 2011, ratio: 0.13 },
-  { day: 'S3', nivel1: 56904, nivel2: 11886, nivel3: 1651, ratio: 0.16 },
-  { day: 'S4', nivel1: 55824, nivel2: 10952, nivel3: 1798, ratio: 0.16 },
-  { day: 'S5', nivel1: 56362, nivel2: 10947, nivel3: 1588, ratio: 0.18 },
-  { day: 'S6', nivel1: 54164, nivel2: 10422, nivel3: 1396, ratio: 0.19 },
-  { day: 'S7', nivel1: 54312, nivel2: 10340, nivel3: 1580, ratio: 0.18 },
-  { day: 'S8', nivel1: 32085, nivel2: 5837, nivel3: 902, ratio: 0.19 },
-];
-
-const hourlyData = [
-  { hora: '0', maletas: 91 },
-  { hora: '1', maletas: 85 },
-  { hora: '2', maletas: 102 },
-  { hora: '3', maletas: 93 },
-  { hora: '4', maletas: 126 },
-  { hora: '5', maletas: 186 },
-  { hora: '6', maletas: 214 },
-  { hora: '7', maletas: 271 },
-  { hora: '8', maletas: 312 },
-  { hora: '9', maletas: 426 },
-  { hora: '10', maletas: 508 },
-  { hora: '11', maletas: 398 },
-  { hora: '12', maletas: 312 },
-  { hora: '13', maletas: 271 },
-  { hora: '14', maletas: 183 },
-  { hora: '15', maletas: 160 },
-  { hora: '16', maletas: 143 },
-  { hora: '17', maletas: 235 },
-  { hora: '18', maletas: 314 },
-  { hora: '19', maletas: 333 },
-  { hora: '20', maletas: 507 },
-  { hora: '21', maletas: 421 },
-  { hora: '22', maletas: 217 },
-  { hora: '23', maletas: 143 },
-];
-
-const errorData = [
-  { semana: 'S2', error: 12 },
-  { semana: 'S3', error: 12 },
-  { semana: 'S4', error: 12 },
-  { semana: 'S5', error: 12 },
-  { semana: 'S6', error: 13 },
-  { semana: 'S7', error: 12 },
-  { semana: 'S8', error: 12 },
-];
-
-const scannerData = [
-  { scanner: 'XCT1', value: 100465 },
-  { scanner: 'XCT2', value: 135043 },
-  { scanner: 'XCT3', value: 304080 },
-];
-
+const weeklyData = [{
+  day: 'S2',
+  nivel1: 58936,
+  nivel2: 11915,
+  nivel3: 2011,
+  ratio: 0.13
+}, {
+  day: 'S3',
+  nivel1: 56904,
+  nivel2: 11886,
+  nivel3: 1651,
+  ratio: 0.16
+}, {
+  day: 'S4',
+  nivel1: 55824,
+  nivel2: 10952,
+  nivel3: 1798,
+  ratio: 0.16
+}, {
+  day: 'S5',
+  nivel1: 56362,
+  nivel2: 10947,
+  nivel3: 1588,
+  ratio: 0.18
+}, {
+  day: 'S6',
+  nivel1: 54164,
+  nivel2: 10422,
+  nivel3: 1396,
+  ratio: 0.19
+}, {
+  day: 'S7',
+  nivel1: 54312,
+  nivel2: 10340,
+  nivel3: 1580,
+  ratio: 0.18
+}, {
+  day: 'S8',
+  nivel1: 32085,
+  nivel2: 5837,
+  nivel3: 902,
+  ratio: 0.19
+}];
+const hourlyData = [{
+  hora: '0',
+  maletas: 91
+}, {
+  hora: '1',
+  maletas: 85
+}, {
+  hora: '2',
+  maletas: 102
+}, {
+  hora: '3',
+  maletas: 93
+}, {
+  hora: '4',
+  maletas: 126
+}, {
+  hora: '5',
+  maletas: 186
+}, {
+  hora: '6',
+  maletas: 214
+}, {
+  hora: '7',
+  maletas: 271
+}, {
+  hora: '8',
+  maletas: 312
+}, {
+  hora: '9',
+  maletas: 426
+}, {
+  hora: '10',
+  maletas: 508
+}, {
+  hora: '11',
+  maletas: 398
+}, {
+  hora: '12',
+  maletas: 312
+}, {
+  hora: '13',
+  maletas: 271
+}, {
+  hora: '14',
+  maletas: 183
+}, {
+  hora: '15',
+  maletas: 160
+}, {
+  hora: '16',
+  maletas: 143
+}, {
+  hora: '17',
+  maletas: 235
+}, {
+  hora: '18',
+  maletas: 314
+}, {
+  hora: '19',
+  maletas: 333
+}, {
+  hora: '20',
+  maletas: 507
+}, {
+  hora: '21',
+  maletas: 421
+}, {
+  hora: '22',
+  maletas: 217
+}, {
+  hora: '23',
+  maletas: 143
+}];
+const errorData = [{
+  semana: 'S2',
+  error: 12
+}, {
+  semana: 'S3',
+  error: 12
+}, {
+  semana: 'S4',
+  error: 12
+}, {
+  semana: 'S5',
+  error: 12
+}, {
+  semana: 'S6',
+  error: 13
+}, {
+  semana: 'S7',
+  error: 12
+}, {
+  semana: 'S8',
+  error: 12
+}];
+const scannerData = [{
+  scanner: 'XCT1',
+  value: 100465
+}, {
+  scanner: 'XCT2',
+  value: 135043
+}, {
+  scanner: 'XCT3',
+  value: 304080
+}];
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28'];
-
 const Dashboard = () => {
   const [startDate, setStartDate] = useState('2024-06-01');
   const [endDate, setEndDate] = useState('2024-06-20');
   const [market, setMarket] = useState('Todos');
   const [llaa, setLlaa] = useState('Todos');
   const [scanner, setScanner] = useState('Todos');
-  
-  return (
-    <DashboardLayout>
+  return <DashboardLayout>
       {/* Dashboard Header */}
       <div className="dashboard-header mb-6 rounded-xl">
         <h1 className="text-xl font-bold">EQUIPAJES SISTEMA BHS/HBS</h1>
-        <img 
-          src="/lovable-uploads/6a3cc1b8-e022-498a-b173-461be4a7edce.png" 
-          alt="LAP Logo" 
-          className="h-10"
-        />
+        <img alt="LAP Logo" src="/lovable-uploads/d69d7047-04f1-48ff-8d12-ccea3e47031c.png" className="h-20" />
       </div>
       
       {/* Filters */}
       <div className="flex flex-wrap gap-4 mb-6">
         <div className="flex items-center gap-2">
           <span className="text-sm font-medium">Año</span>
-          <FilterDropdown
-            label="Año"
-            options={['Todos', '2023', '2024']}
-            value="2024"
-            onChange={() => {}}
-          />
+          <FilterDropdown label="Año" options={['Todos', '2023', '2024']} value="2024" onChange={() => {}} />
         </div>
         
-        <DateRangePicker
-          startDate={startDate}
-          endDate={endDate}
-          onStartDateChange={setStartDate}
-          onEndDateChange={setEndDate}
-        />
+        <DateRangePicker startDate={startDate} endDate={endDate} onStartDateChange={setStartDate} onEndDateChange={setEndDate} />
         
-        <FilterDropdown
-          label="Market"
-          options={['Todos', 'Mercado 1', 'Mercado 2', 'Mercado 3']}
-          value={market}
-          onChange={setMarket}
-        />
+        <FilterDropdown label="Market" options={['Todos', 'Mercado 1', 'Mercado 2', 'Mercado 3']} value={market} onChange={setMarket} />
         
-        <FilterDropdown
-          label="LLAA"
-          options={['Todos', 'LLAA 1', 'LLAA 2', 'LLAA 3']}
-          value={llaa}
-          onChange={setLlaa}
-        />
+        <FilterDropdown label="LLAA" options={['Todos', 'LLAA 1', 'LLAA 2', 'LLAA 3']} value={llaa} onChange={setLlaa} />
         
-        <FilterDropdown
-          label="Scanner"
-          options={['Todos', 'XCT1', 'XCT2', 'XCT3']}
-          value={scanner}
-          onChange={setScanner}
-        />
+        <FilterDropdown label="Scanner" options={['Todos', 'XCT1', 'XCT2', 'XCT3']} value={scanner} onChange={setScanner} />
       </div>
       
       {/* Metrics Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-        <MetricCard
-          title="Total de equipajes"
-          value="304,080"
-          description="Maletas procesadas"
-          icon={<Briefcase className="text-primary" size={18} />}
-          trend={{ value: 5.2, isPositive: true }}
-        />
+        <MetricCard title="Total de equipajes" value="304,080" description="Maletas procesadas" icon={<Briefcase className="text-primary" size={18} />} trend={{
+        value: 5.2,
+        isPositive: true
+      }} />
         
-        <MetricCard
-          title="Equipajes Nivel 1"
-          value="367,147"
-          description="68% del total"
-          valueClassName="text-green-600"
-        />
+        <MetricCard title="Equipajes Nivel 1" value="367,147" description="68% del total" valueClassName="text-green-600" />
         
-        <MetricCard
-          title="Equipajes Nivel 2"
-          value="72,299"
-          description="13% del total"
-          valueClassName="text-yellow-500"
-        />
+        <MetricCard title="Equipajes Nivel 2" value="72,299" description="13% del total" valueClassName="text-yellow-500" />
         
-        <MetricCard
-          title="Equipajes Nivel 3"
-          value="10,926"
-          description="2% del total"
-          valueClassName="text-red-500"
-        />
+        <MetricCard title="Equipajes Nivel 3" value="10,926" description="2% del total" valueClassName="text-red-500" />
       </div>
       
       {/* Charts Row 1 */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-        <ChartCard
-          title="Desempeño por nivel de inspección"
-          className="lg:col-span-2"
-          tools={
-            <button className="text-xs text-primary flex items-center gap-1">
+        <ChartCard title="Desempeño por nivel de inspección" className="lg:col-span-2" tools={<button className="text-xs text-primary flex items-center gap-1">
               <RefreshCw size={12} />
               Actualizar
-            </button>
-          }
-        >
+            </button>}>
           <div className="chart-container">
             <ResponsiveContainer width="100%" height="100%">
-              <RechartsBarChart
-                data={weeklyData}
-                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-              >
+              <RechartsBarChart data={weeklyData} margin={{
+              top: 20,
+              right: 30,
+              left: 20,
+              bottom: 5
+            }}>
                 <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
                 <XAxis dataKey="day" />
                 <YAxis />
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                    border: 'none'
-                  }}
-                />
+                <Tooltip contentStyle={{
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                border: 'none'
+              }} />
                 <Legend />
                 <Bar dataKey="nivel1" name="Nivel 1" fill="#10b981" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="nivel2" name="Nivel 2" fill="#fbbf24" radius={[4, 4, 0, 0]} />
@@ -218,29 +237,18 @@ const Dashboard = () => {
           <div className="chart-container">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
-                <Pie
-                  data={scannerData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={80}
-                  paddingAngle={5}
-                  dataKey="value"
-                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                >
-                  {scannerData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                  ))}
+                <Pie data={scannerData} cx="50%" cy="50%" innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value" label={({
+                name,
+                percent
+              }) => `${name} ${(percent * 100).toFixed(0)}%`}>
+                  {scannerData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
                 </Pie>
-                <Tooltip 
-                  formatter={(value) => new Intl.NumberFormat().format(value as number)}
-                  contentStyle={{ 
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                    border: 'none'
-                  }}
-                />
+                <Tooltip formatter={value => new Intl.NumberFormat().format(value as number)} contentStyle={{
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                border: 'none'
+              }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
@@ -249,65 +257,43 @@ const Dashboard = () => {
       
       {/* Charts Row 2 */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-        <ChartCard
-          title="Evolución semanal / diaria"
-          className="lg:col-span-2"
-        >
+        <ChartCard title="Evolución semanal / diaria" className="lg:col-span-2">
           <div className="chart-container">
             <ResponsiveContainer width="100%" height="100%">
-              <RechartsLineChart
-                data={weeklyData}
-                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-              >
+              <RechartsLineChart data={weeklyData} margin={{
+              top: 20,
+              right: 30,
+              left: 20,
+              bottom: 5
+            }}>
                 <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
                 <XAxis dataKey="day" />
                 <YAxis yAxisId="left" orientation="left" />
                 <YAxis yAxisId="right" orientation="right" />
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                    border: 'none'
-                  }}
-                />
+                <Tooltip contentStyle={{
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                border: 'none'
+              }} />
                 <Legend />
-                <Line 
-                  type="monotone" 
-                  dataKey="nivel1" 
-                  name="Maletas" 
-                  stroke="#3b82f6" 
-                  activeDot={{ r: 8 }} 
-                  strokeWidth={2}
-                  yAxisId="left"
-                />
-                <Line 
-                  type="monotone" 
-                  dataKey="ratio" 
-                  name="Ratio" 
-                  stroke="#8884d8" 
-                  yAxisId="right"
-                  strokeWidth={2}
-                  dot={{ r: 4 }}
-                />
+                <Line type="monotone" dataKey="nivel1" name="Maletas" stroke="#3b82f6" activeDot={{
+                r: 8
+              }} strokeWidth={2} yAxisId="left" />
+                <Line type="monotone" dataKey="ratio" name="Ratio" stroke="#8884d8" yAxisId="right" strokeWidth={2} dot={{
+                r: 4
+              }} />
               </RechartsLineChart>
             </ResponsiveContainer>
           </div>
         </ChartCard>
         
-        <ChartCard 
-          title="% error de lectura de Bag Tag"
-        >
+        <ChartCard title="% error de lectura de Bag Tag">
           <div className="h-[240px] flex flex-col items-center justify-center mb-4">
-            <GaugeChart 
-              value={12} 
-              title="Porcentaje de error"
-              colors={{
-                primary: '#ef4444',
-                background: '#e5e7eb',
-              }}
-              size={160}
-            />
+            <GaugeChart value={12} title="Porcentaje de error" colors={{
+            primary: '#ef4444',
+            background: '#e5e7eb'
+          }} size={160} />
           </div>
           
           <div className="flex items-center justify-center mt-2">
@@ -320,55 +306,52 @@ const Dashboard = () => {
       
       {/* Charts Row 3 */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-        <ChartCard
-          title="% Error de lectura por semana"
-          className="lg:col-span-1"
-        >
+        <ChartCard title="% Error de lectura por semana" className="lg:col-span-1">
           <div className="chart-container">
             <ResponsiveContainer width="100%" height="100%">
-              <RechartsBarChart
-                data={errorData}
-                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-              >
+              <RechartsBarChart data={errorData} margin={{
+              top: 20,
+              right: 30,
+              left: 20,
+              bottom: 5
+            }}>
                 <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
                 <XAxis dataKey="semana" />
                 <YAxis domain={[0, 20]} />
-                <Tooltip 
-                  formatter={(value) => [`${value}%`, 'Error']}
-                  contentStyle={{ 
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                    border: 'none'
-                  }}
-                />
+                <Tooltip formatter={value => [`${value}%`, 'Error']} contentStyle={{
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                border: 'none'
+              }} />
                 <Bar dataKey="error" name="Error %" fill="#ef4444" radius={[4, 4, 0, 0]} />
               </RechartsBarChart>
             </ResponsiveContainer>
           </div>
         </ChartCard>
         
-        <ChartCard
-          title="Promedio maletas por hora"
-          className="lg:col-span-2"
-        >
+        <ChartCard title="Promedio maletas por hora" className="lg:col-span-2">
           <div className="chart-container">
             <ResponsiveContainer width="100%" height="100%">
-              <RechartsBarChart
-                data={hourlyData}
-                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-              >
+              <RechartsBarChart data={hourlyData} margin={{
+              top: 20,
+              right: 30,
+              left: 20,
+              bottom: 5
+            }}>
                 <CartesianGrid strokeDasharray="3 3" opacity={0.1} />
-                <XAxis dataKey="hora" label={{ value: 'Hora', position: 'insideBottomRight', offset: -5 }} />
+                <XAxis dataKey="hora" label={{
+                value: 'Hora',
+                position: 'insideBottomRight',
+                offset: -5
+              }} />
                 <YAxis domain={[0, 600]} />
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                    border: 'none'
-                  }}
-                />
+                <Tooltip contentStyle={{
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                border: 'none'
+              }} />
                 <Bar dataKey="maletas" name="Maletas" fill="#3b82f6" radius={[4, 4, 0, 0]} />
               </RechartsBarChart>
             </ResponsiveContainer>
@@ -418,8 +401,6 @@ const Dashboard = () => {
           </div>
         </div>
       </ChartCard>
-    </DashboardLayout>
-  );
+    </DashboardLayout>;
 };
-
 export default Dashboard;
